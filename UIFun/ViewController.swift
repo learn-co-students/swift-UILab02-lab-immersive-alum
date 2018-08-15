@@ -12,10 +12,23 @@ class ViewController: UIViewController {
 
     // TODO: Setup the IBOutlets
     
+    @IBOutlet weak var paintBucket: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        paintBucket.backgroundColor = UIColor.red
     }
-
+    @IBOutlet weak var firstColor: UISegmentedControl!
+    @IBOutlet weak var secondColor: UISegmentedControl!
+    
+    @IBAction func colorSelected(_ sender: UISegmentedControl) {
+        let firstSelection = firstColor.selectedSegmentIndex
+        let secondSelection = secondColor.selectedSegmentIndex
+        let FirstColorChoice = getPaintColor(index: firstSelection)
+        let secondColorChoice = getPaintColor(index: secondSelection)
+        paintBucket.backgroundColor = mixColors(first: FirstColorChoice, second: secondColorChoice)
+        
+    }
+    
     func mixColors(first: String, second: String) -> UIColor {
         
         switch (first, second) {
@@ -34,14 +47,20 @@ class ViewController: UIViewController {
         default:
             return UIColor.white
         }
-        
     }
     
-    @IBAction func colorSelected(_ sender: UISegmentedControl) {
-        
-        // TODO: Implement this function according to the instructions.
-        
-        
+    func getPaintColor(index: Int) -> String {
+        switch index {
+        case 0:
+            return "Red"
+        case 1:
+            return "Yellow"
+        case 2:
+            return "Blue"
+        default:
+            return "White"
+        }
     }
+    
 
 }
